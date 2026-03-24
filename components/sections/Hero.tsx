@@ -19,7 +19,7 @@ export default function Hero() {
         >
           <h1 className="text-black font-black text-6xl md:text-8xl lg:text-[9rem] tracking-tighter uppercase leading-[0.8] mb-12 flex flex-col items-center">
             <span className="inline-block">NUTRITION</span>
-            <span className="inline-block lowercase italic font-light tracking-normal text-6xl md:text-7xl lg:text-8xl py-4 opacity-40">
+            <span className="inline-block lowercase italic font-light tracking-normal text-6xl md:text-7xl lg:text-8xl py-4">
               expert &
             </span>
             <span className="inline-block">SPORTS</span>
@@ -33,10 +33,10 @@ export default function Hero() {
           transition={{ delay: 0.4, duration: 0.8 }}
           className="flex flex-col items-center mt-12"
         >
-          <p className="text-black/60 italic text-lg md:text-xl tracking-[0.2em] uppercase font-light">
+          <p className="text-black italic text-lg md:text-xl tracking-[0.2em] uppercase font-light">
             "Performance begins on the plate."
           </p>
-          <span className="text-black/20 text-[10px] uppercase tracking-[0.5em] mt-8 font-bold">
+          <span className="text-black text-[10px] uppercase tracking-[0.5em] mt-8 font-bold">
             — REKCAL ELITE PERFORMANCE —
           </span>
         </motion.div>
@@ -50,7 +50,7 @@ export default function Hero() {
           preserveAspectRatio="none"
         >
           <path 
-            fill="#f9fafb" 
+            fill="#000000" 
             d="M0,160L60,170.7C120,181,240,203,360,192C480,181,600,139,720,133.3C840,128,960,160,1080,170.7C1200,181,1320,171,1380,165.3L1440,160V320H1380C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320H0Z"
           ></path>
         </svg>

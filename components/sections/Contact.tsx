@@ -40,10 +40,10 @@ export default function Contact() {
         {/* Left Aspect: Call to Action */}
         <div className="flex flex-col justify-start">
           <div className="sticky top-32">
-            <h2 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase leading-[0.8] text-zinc-950 mb-12">
+            <h2 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase leading-[0.8] text-black mb-12">
               PREPARE YOUR <br /> PERFORMANCE
             </h2>
-            <p className="text-zinc-500 uppercase tracking-widest text-sm max-w-sm leading-loose">
+            <p className="text-black/80 uppercase tracking-widest text-sm max-w-sm leading-loose font-medium">
               An athletic goal? Need nutritional support? 
               Fill out the form and let's optimize your metabolism.
             </p>
@@ -142,7 +142,7 @@ export default function Contact() {
           <button
             type="submit"
             disabled={isSending}
-            className="w-fit bg-zinc-950 text-white px-12 py-5 text-sm font-bold uppercase tracking-widest hover:bg-zinc-800 transition-all hover:px-16 disabled:bg-zinc-400 disabled:cursor-not-allowed"
+            className="w-fit bg-black text-white px-12 py-5 text-sm font-black uppercase tracking-widest hover:bg-zinc-800 transition-all hover:px-16 disabled:bg-zinc-400 disabled:cursor-not-allowed"
           >
             {isSending ? "Sending..." : "Send"}
           </button>

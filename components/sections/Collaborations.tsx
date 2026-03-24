@@ -48,7 +48,7 @@ export default function Collaborations() {
 
             {/* Hover Overlay */}
             <div className="absolute inset-0 bg-black/90 flex flex-col items-center justify-center translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[0.16, 1, 0.3, 1] p-12 text-center pointer-events-none">
-              <span className="text-white/40 text-[10px] uppercase tracking-[0.3em] mb-6">
+              <span className="text-white text-[10px] uppercase tracking-[0.3em] mb-6 font-bold">
                 {project.category}
               </span>
               <h3 className="text-white text-4xl font-bold uppercase tracking-tighter leading-tight mb-8">
