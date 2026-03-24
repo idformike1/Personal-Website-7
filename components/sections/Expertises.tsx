@@ -46,12 +46,12 @@ export default function Expertises() {
           <div className="w-20 h-1 bg-black" />
         </div>
 
-        {/* HIGH-FIDELITY HORIZONTAL ACCORDION */}
-        <div className="flex flex-col md:flex-row h-[600px] w-full gap-4 items-stretch">
+        {/* HIGH-FIDELITY HORIZONTAL ACCORDION - REVERTED STABLE HOVER VERSION */}
+        <div className="flex flex-col md:flex-row h-auto md:h-[600px] w-full gap-4 items-stretch">
           {EXPERTISES.map((exp, index) => (
             <div
               key={exp.id}
-              className="group relative flex-[1] hover:flex-[5] transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] overflow-hidden rounded-[2rem] cursor-pointer shadow-xl border border-zinc-200"
+              className="group relative h-[450px] md:h-full w-full md:flex-[1] md:hover:flex-[5] transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] overflow-hidden rounded-[2rem] cursor-pointer shadow-xl border border-zinc-200"
             >
               {/* Background Image Layer */}
               <div className="absolute inset-0 z-0">
@@ -59,18 +59,20 @@ export default function Expertises() {
                   src={exp.image}
                   alt={exp.title}
                   fill
-                  priority={index < 3} // Prioritize first row for LCP
+                  priority={index < 3}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
                 />
-                {/* Visual Overlay for Readability */}
-                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-1000" />
+                <div className="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition-colors duration-1000" />
               </div>
 
-              {/* Floating Title Label */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-full px-4 flex justify-center">
-                <div className="bg-white/95 backdrop-blur-sm px-6 py-4 rounded-xl shadow-lg border border-white/20 transform group-hover:scale-110 transition-transform duration-700">
-                  <h3 className="text-black font-black text-xs md:text-sm uppercase tracking-[0.2em] whitespace-nowrap">
+              {/* VERTICAL PIVOT TITLE (Responsive Rotation) */}
+              <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+                <div 
+                  className="transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] transform
+                             rotate-0 md:-rotate-90 md:group-hover:rotate-0 group-hover:scale-110"
+                >
+                  <h3 className="text-white font-black text-sm md:text-xl lg:text-3xl uppercase tracking-[0.3em] whitespace-nowrap drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]">
                     {exp.title}
                   </h3>
                 </div>
