@@ -1,0 +1,4 @@
+1. Modularity: All UI elements must be reusable React components. Keep under 150 lines.
+2. Styling: Tailwind CSS only. No custom CSS files unless strictly necessary.
+3. Token Efficiency: Use constant arrays for repeated data (e.g., nav links, services) and map over them.
+4. Output: Write complete, bug-free TypeScript code. No placeholder comments for logic.
