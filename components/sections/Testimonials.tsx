@@ -5,10 +5,10 @@ import { TESTIMONIALS } from "@/lib/constants";
 
 export default function Testimonials() {
   return (
-    <section className="py-24 bg-zinc-50">
+    <section className="py-24 md:py-32 bg-zinc-50">
       <div className="container mx-auto px-6">
         <h2 className="text-4xl md:text-5xl font-bold tracking-tighter uppercase mb-20 leading-none text-zinc-950 text-center">
-          LES TÉMOIGNAGES <br /> DE NOS CLIENTS
+          OUR CLIENT <br /> TESTIMONIALS
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">

@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 export default function Collaborations() {
   return (
-    <section id="realisations" className="py-32 bg-white">
+    <section id="realisations" className="py-24 md:py-32 bg-white">
       <div className="container mx-auto px-6 mb-24">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -16,7 +16,7 @@ export default function Collaborations() {
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         >
           <h2 className="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-[0.75] text-zinc-950">
-            NOS <br /> COLLABORATIONS <br /> CRÉATIVES
+            OUR ATHLETIC <br /> SUCCESSES
           </h2>
         </motion.div>
       </div>
