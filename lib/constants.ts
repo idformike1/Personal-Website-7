@@ -36,37 +36,37 @@ export const PORTFOLIO = [
     id: "cricket-prep",
     title: "National Cricket Prep",
     category: "Performance Coaching",
-    imageUrl: "https://images.unsplash.com/photo-1540747913346-19e32fc3e64b?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "/images/portfolio/cricket_prep.png",
   },
   {
     id: "wrestling-transform",
     title: "Weight Class Optimization",
     category: "Wrestling Nutrition",
-    imageUrl: "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "/images/portfolio/wrestling_transform.png",
   },
   {
     id: "olympic-athlete",
     title: "Olympic Athlete Support",
     category: "Game-Day Support",
-    imageUrl: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "/images/portfolio/olympic_athlete.png",
   },
   {
     id: "badminton-agility",
     title: "Badminton Agility Diet",
     category: "Metabolic Reset",
-    imageUrl: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "/images/portfolio/badminton_agility.png",
   },
   {
     id: "marathon-fuel",
     title: "Global Marathon Fueling",
     category: "Endurance Nutrition",
-    imageUrl: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "/images/portfolio/marathon_fuel.png",
   },
   {
     id: "kabaddi-power",
     title: "Kabaddi Power Program",
     category: "Strength & Recovery",
-    imageUrl: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "/images/portfolio/kabaddi_power.png",
   },
 ];
 

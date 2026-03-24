@@ -41,6 +41,7 @@ export default function Collaborations() {
                 src={project.imageUrl}
                 alt={project.title}
                 fill
+                priority={index < 3} // Prioritize first row for LCP
                 className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
                 sizes="(max-width: 768px) 100vw, 33vw"
               />
