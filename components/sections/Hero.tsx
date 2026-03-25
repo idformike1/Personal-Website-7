@@ -38,7 +38,7 @@ export default function Hero() {
       );
 
       if (splits.length > 0) {
-        splits.forEach(s => s.chars && gsap.set(s.chars, { yPercent: 100, opacity: 0 }));
+        splits.forEach(s => s.chars && gsap.set(s.chars, { yPercent: -100, opacity: 0 }));
         
         const rollTl = gsap.timeline({ repeat: -1 });
         splits.forEach((split, index) => {
@@ -56,7 +56,7 @@ export default function Hero() {
           rollTl.to({}, { duration: 2 });
 
           rollTl.to(chars, {
-            yPercent: -100,
+            yPercent: 100,
             opacity: 0,
             stagger: 0.02,
             duration: 0.5,
