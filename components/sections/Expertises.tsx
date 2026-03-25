@@ -1,6 +1,7 @@
 "use client";
-import React from "react";
+import React, { useState, useRef, useLayoutEffect, useEffect } from "react";
 import Image from "next/image";
+import { gsap } from "gsap";
 
 const EXPERTISES = [
   { 
@@ -36,9 +37,101 @@ const EXPERTISES = [
 ];
 
 export default function Expertises() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Initial check for mobile viewport
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useLayoutEffect(() => {
+    cardsRef.current.forEach((card, index) => {
+      if (!card) return;
+
+      const isExpanded = activeIndex === index;
+      const desc = card.querySelector(".expertise-desc");
+      const titleWrapper = card.querySelector(".expertise-title-wrapper");
+      const image = card.querySelector(".expertise-img");
+      const overlay = card.querySelector(".expertise-overlay");
+
+      // KILL existing animations on these elements to prevent fighting
+      gsap.killTweensOf([card, desc, titleWrapper, image, overlay]);
+
+      // 1. MOBILE ANIMATION (Height-based)
+      if (isMobile) {
+        gsap.set(card, { flexGrow: 0, flexBasis: "auto" });
+        gsap.to(card, {
+          height: isExpanded ? 240 : 100,
+          duration: 0.5,
+          ease: "power2.out",
+          overwrite: "auto"
+        });
+      } 
+      // 2. DESKTOP ANIMATION (Flex-based expansion)
+      else {
+        gsap.set(card, { height: "100%" }); // Ensure full height on desktop
+        gsap.to(card, {
+          flexGrow: isExpanded ? 5 : 1,
+          flexBasis: "0%",
+          duration: 0.8,
+          ease: "expo.out",
+          overwrite: "auto"
+        });
+      }
+
+      // 3. TITLE ROTATION & SCALE (Common)
+      if (titleWrapper) {
+        gsap.to(titleWrapper, {
+          rotate: isExpanded ? 0 : (isMobile ? 0 : -90),
+          scale: isExpanded ? 1.05 : 1,
+          duration: 0.7,
+          ease: "power3.inOut"
+        });
+      }
+
+      // 4. DESCRIPTION REVEAL (Common)
+      if (desc) {
+        gsap.to(desc, {
+          y: isExpanded ? 0 : "120%",
+          autoAlpha: isExpanded ? 1 : 0,
+          duration: 0.5,
+          ease: "power2.out"
+        });
+      }
+
+      // 5. IMAGE VISUALS (Common)
+      if (image) {
+        gsap.to(image, {
+          filter: isExpanded ? "grayscale(0%)" : "grayscale(100%)",
+          scale: isExpanded ? 1.1 : 1,
+          duration: 1,
+          ease: "power2.out"
+        });
+      }
+
+      // 6. OVERLAY TINT (Common)
+      if (overlay) {
+        gsap.to(overlay, {
+          backgroundColor: isExpanded ? "rgba(0,0,0,0.3)" : "rgba(0,0,0,0.6)",
+          duration: 0.5
+        });
+      }
+    });
+  }, [activeIndex, isMobile]);
+
+  const handleInteraction = (index: number) => {
+    setActiveIndex(activeIndex === index ? null : index);
+  };
+
   return (
     <section id="prestations" className="py-32 bg-white overflow-hidden">
       <div className="container mx-auto px-6">
+        {/* Header Section */}
         <div className="mb-16">
           <h2 className="text-5xl md:text-7xl font-black text-black uppercase tracking-tighter leading-none mb-4">
             OUR PERFORMANCE<br />EXPERTISE
@@ -46,53 +139,61 @@ export default function Expertises() {
           <div className="w-20 h-1 bg-black" />
         </div>
 
-        {/* HIGH-FIDELITY HORIZONTAL ACCORDION - REVERTED STABLE HOVER VERSION */}
+        {/* CARDS WRAPPER */}
         <div className="flex flex-col md:flex-row h-auto md:h-[600px] w-full gap-4 items-stretch">
           {EXPERTISES.map((exp, index) => (
             <div
               key={exp.id}
-              className="group relative h-[450px] md:h-full w-full md:flex-[1] md:hover:flex-[5] transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] overflow-hidden rounded-[2rem] cursor-pointer shadow-xl border border-zinc-200"
+              ref={(el) => { cardsRef.current[index] = el; }}
+              onClick={() => handleInteraction(index)}
+              onMouseEnter={() => !isMobile && setActiveIndex(index)}
+              onMouseLeave={() => !isMobile && setActiveIndex(null)}
+              className="relative w-full overflow-hidden rounded-2xl md:rounded-[2rem] 
+                         cursor-pointer shadow-xl border border-zinc-200 bg-zinc-900 overflow-hidden"
+              style={{ 
+                height: isMobile ? "100px" : "100%", 
+                flexGrow: 1,
+                flexBasis: isMobile ? "auto" : "0%"
+              }}
             >
-              {/* Background Image Layer */}
-              <div className="absolute inset-0 z-0">
+              {/* Image Layer */}
+              <div className="absolute inset-0 z-0 pointer-events-none">
                 <Image
                   src={exp.image}
                   alt={exp.title}
                   fill
                   priority={index < 3}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
+                  className="expertise-img object-cover"
                 />
-                <div className="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition-colors duration-1000" />
+                <div className="expertise-overlay absolute inset-0" />
               </div>
 
-              {/* VERTICAL PIVOT TITLE (Responsive Rotation) */}
-              <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
-                <div 
-                  className="transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] transform
-                             rotate-0 md:-rotate-90 md:group-hover:rotate-0 group-hover:scale-110"
-                >
-                  <h3 className="text-white font-black text-sm md:text-xl lg:text-3xl uppercase tracking-[0.3em] whitespace-nowrap drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]">
+              {/* Title Section */}
+              <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none p-4">
+                <div className="expertise-title-wrapper">
+                  <h3 className="text-white font-black text-lg md:text-2xl lg:text-4xl uppercase tracking-[0.1em] text-center drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)] max-w-[80vw] md:max-w-none">
                     {exp.title}
                   </h3>
                 </div>
               </div>
 
-              {/* Bottom Description (Reveals on Hover) */}
-              <div className="absolute bottom-0 left-0 w-full p-8 z-20 translate-y-full group-hover:translate-y-0 transition-transform duration-700 delay-100">
-                <div className="bg-black/80 backdrop-blur-md p-6 rounded-2xl border border-white/10">
-                  <p className="text-white text-sm md:text-base leading-relaxed font-medium">
-                    {exp.desc}
-                  </p>
-                </div>
+              {/* Description Section */}
+              <div className="expertise-desc absolute bottom-0 left-0 w-full p-6 z-20">
+                <p className="text-white text-xs md:text-lg lg:text-xl leading-relaxed font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                  {exp.desc}
+                </p>
               </div>
 
               {/* ID Badge */}
-              <div className="absolute top-6 left-6 z-20">
-                <span className="text-white/40 font-black text-2xl tracking-tighter italic">
+              <div className="absolute top-4 left-4 z-20">
+                <span className="text-white/40 font-black text-sm md:text-2xl tracking-tighter italic">
                   {exp.id}
                 </span>
               </div>
+
+              {/* Click Hover Feedback */}
+              <div className="absolute inset-0 z-30 bg-white/0 hover:bg-white/5 transition-colors duration-300 pointer-events-none" />
             </div>
           ))}
         </div>
