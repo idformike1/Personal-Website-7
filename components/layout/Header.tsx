@@ -84,8 +84,8 @@ export default function Header() {
           REKCAL
         </Link>
 
-        {/* DESKTOP MENU */}
-        <ul className="hidden md:flex gap-8 items-center">
+        {/* DESKTOP MENU (Visible on lg screens and above) */}
+        <ul className="hidden lg:flex gap-8 items-center">
           {NAV_LINKS.map((link) => (
             <li key={link.id}>
               <Link
@@ -98,10 +98,10 @@ export default function Header() {
           ))}
         </ul>
 
-        {/* MOBILE TOGGLE BUTTON */}
+        {/* MOBILE TOGGLE BUTTON (Visible on md/sm screens below lg) */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden flex flex-col gap-1.5 p-2 focus:outline-none relative w-10 h-10 items-center justify-center cursor-pointer group"
+          className="lg:hidden flex flex-col gap-1.5 p-2 focus:outline-none relative w-10 h-10 items-center justify-center cursor-pointer group"
           aria-label={isOpen ? "Close Menu" : "Open Menu"}
         >
           <motion.div 
@@ -127,9 +127,10 @@ export default function Header() {
             animate="open"
             exit="closed"
             variants={overlayVariants}
-            className="fixed inset-0 bg-[#141414] z-[100] flex items-center px-10"
+            className="fixed inset-0 bg-[#141414] z-[100] flex flex-col pt-[20vh] px-10 overflow-y-auto no-scrollbar"
           >
-            <div className="flex flex-col gap-4 mt-8">
+            {/* MOBILE MENU NAV ITEMS */}
+            <div className="flex flex-col gap-4">
               {NAV_LINKS.map((link, i) => (
                 <div key={link.id} className="overflow-hidden">
                   <motion.div
@@ -147,9 +148,27 @@ export default function Header() {
                 </div>
               ))}
             </div>
+
+            {/* SOCIAL LINKS (Right after menu list) */}
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+              className="flex gap-8 items-center pt-10 mt-6 border-t border-white/10"
+            >
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-40 transition-opacity text-white" aria-label="Facebook">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-40 transition-opacity text-white" aria-label="LinkedIn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"></path><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-40 transition-opacity text-white" aria-label="Instagram">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              </a>
+            </motion.div>
             
-            {/* BACKGROUND STYLING (Subtle reference to CodePen's image logic) */}
-            <div className="absolute right-0 bottom-0 opacity-10 p-10 select-none pointer-events-none">
+            {/* BACKGROUND STYLING */}
+            <div className="mt-20 opacity-10 select-none pointer-events-none self-start">
                 <span className="text-[20vw] font-black text-white leading-none uppercase">
                     REKCAL
                 </span>
