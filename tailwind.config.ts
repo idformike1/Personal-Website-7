@@ -15,6 +15,7 @@ const config: Config = {
       fontFamily: {
         tenor: ["var(--font-tenor-sans)"],
         sans: ["var(--font-inter)"],
+        avenir: ["var(--font-avenir)", "sans-serif"],
       },
     },
   },

@@ -3,6 +3,7 @@
 @theme {
   --font-inter: var(--font-inter);
   --font-tenor: var(--font-tenor-sans);
+  --font-avenir: var(--font-avenir), sans-serif;
 }
 
 :root {

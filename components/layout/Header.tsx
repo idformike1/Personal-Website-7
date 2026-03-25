@@ -31,12 +31,12 @@ export default function Header() {
           REKCAL
         </Link>
 
-        <ul className="flex gap-8 items-center text-sm font-medium">
+        <ul className="flex gap-8 items-center">
           {NAV_LINKS.map((link) => (
             <li key={link.id}>
               <Link
                 href={link.href}
-                className="hover:opacity-60 transition-opacity uppercase tracking-wider"
+                className="hover:opacity-60 transition-opacity font-avenir text-black text-sm md:text-[18px] md:font-[500] md:leading-[23px]"
               >
                 {link.label}
               </Link>
