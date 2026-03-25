@@ -101,28 +101,28 @@ export default function Hero() {
         {/* MAIN HEADLINE */}
         <h1 
           ref={headlineRef} 
-          className="flex flex-col items-center leading-[0.7] gap-y-1.5 sm:gap-y-5 mb-10 md:mb-16"
+          className="flex flex-col items-center leading-[0.7] gap-y-2 sm:gap-y-1.25 mb-10 md:mb-16"
         >
-          {/* LINE 1 & 2 (Mobile Cluster) */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-y-1.5 sm:gap-y-0 sm:gap-x-3">
-              <div className="flex items-center gap-x-3">
-                <span className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] xl:text-[64px] font-bold tracking-tighter uppercase whitespace-nowrap">
+          {/* ROW 1: DICTATE the [WORDROLL] (Split into 2 lines on mobile, bottom-aligned on desktop) */}
+          <div className="flex flex-col sm:flex-row items-center sm:items-end justify-center gap-y-2 sm:gap-y-0 gap-x-2 sm:gap-x-6">
+              <div className="flex items-end gap-x-2 sm:gap-x-6 pb-[2px] sm:pb-0">
+                <span className="text-[38px] sm:text-4xl md:text-5xl lg:text-[56px] xl:text-[64px] font-bold tracking-tighter uppercase whitespace-nowrap leading-none">
                   {splitText("DICTATE")}
                 </span>
-                <span className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] xl:text-[64px] font-bold lowercase">
+                <span className="text-[34px] sm:text-3xl md:text-4xl lg:text-[50px] xl:text-[58px] font-normal lowercase leading-none">
                   {splitText("the")}
                 </span>
               </div>
             
-              <div className="relative inline-flex flex-col items-center min-w-[140px] sm:min-w-[160px] md:min-w-[200px] lg:min-w-[280px] xl:min-w-[320px]">
+              <div className="relative inline-flex flex-col items-center min-w-[170px] sm:min-w-[160px] md:min-w-[200px] lg:min-w-[280px] xl:min-w-[320px]">
                 <div 
                   ref={wordRollRef}
-                  className="h-10 sm:h-12 md:h-14 lg:h-18 xl:h-20 overflow-hidden relative w-full"
+                  className="h-[44px] sm:h-12 md:h-14 lg:h-18 xl:h-16 overflow-hidden relative w-full"
                 >
                   {WORDS.map((word, i) => (
                     <div 
                       key={i} 
-                      className="word-item absolute inset-0 h-full w-full flex items-center justify-center text-3xl sm:text-4xl md:text-5xl lg:text-[56px] xl:text-[64px] italic font-bold uppercase tracking-tight opacity-60 pr-2"
+                      className="word-item absolute inset-0 h-full w-full flex items-end justify-center sm:justify-start text-[38px] sm:text-4xl md:text-5xl lg:text-[56px] xl:text-[64px] italic font-bold uppercase tracking-tight opacity-60 pr-2 leading-none"
                     >
                       {word}
                     </div>
@@ -131,26 +131,26 @@ export default function Hero() {
               </div>
           </div>
 
-          {/* LINE 3 & 4 (Mobile Cluster) */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-y-1.5 sm:gap-y-0 sm:gap-x-3">
-             <span className="text-4xl sm:text-5xl md:text-7xl lg:text-[88px] xl:text-[100px] font-bold uppercase py-1">
-              {splitText("DOSE")}
-            </span>
-            
-            <div className="flex items-center gap-x-3">
-              <span className="text-4xl sm:text-5xl md:text-7xl lg:text-[88px] xl:text-[100px] font-bold py-1 tracking-[-0.05em]">
+          {/* ROW 2: DOSE & DEPLOY (Split into 'DOSE &' and 'DEPLOY' on mobile) */}
+          <div className="flex flex-col sm:flex-row items-center sm:items-end justify-center gap-y-2 sm:gap-y-0 gap-x-2 sm:gap-x-6">
+            <div className="flex items-end gap-x-2 sm:gap-x-4 pb-[2px] sm:pb-0">
+              <span className="text-[50px] sm:text-5xl md:text-7xl lg:text-[88px] xl:text-[100px] font-bold uppercase py-1 leading-none">
+                {splitText("DOSE")}
+              </span>
+              <span className="text-[32px] sm:text-3xl md:text-5xl lg:text-[68px] xl:text-[76px] font-medium py-1 tracking-[-0.05em] opacity-40 inline-block leading-none translate-y-[-10%] sm:translate-y-0">
                 {splitText("&")}
               </span>
-              <span className="text-4xl sm:text-5xl md:text-7xl lg:text-[88px] xl:text-[100px] font-bold tracking-tighter uppercase py-1">
-                {splitText("DEPLOY")}
-              </span>
             </div>
+            
+            <span className="text-[50px] sm:text-5xl md:text-7xl lg:text-[88px] xl:text-[100px] font-bold tracking-tighter uppercase py-1 leading-none">
+              {splitText("DEPLOY")}
+            </span>
           </div>
         </h1>
 
         {/* SUB-TEXT - Centered for All Modes per User Request */}
         <div ref={subTextRef} className="relative flex flex-col items-center max-w-2xl mx-auto opacity-0 px-6">
-          <p className="text-black text-sm md:text-base lg:text-lg tracking-[0.05em] text-center mb-6 opacity-70">
+          <p className="text-black text-sm md:text-base lg:text-lg font-semibold tracking-[0.05em] text-center mb-6 opacity-70">
              High-yield sports nutrition. Converting dietary payloads into kinetic energy.
           </p>
 
@@ -163,11 +163,11 @@ export default function Hero() {
       </div>
 
       {/* CIRCULAR "DISCOVER" TEXT (POSITIONED ABOVE THE CURVE ANCHOR) */}
-      <div className="absolute bottom-[18vh] left-6 md:bottom-[22vh] md:left-24 z-40 opacity-40 scale-75 md:scale-100">
+      <div className="absolute bottom-10 left-6 md:bottom-[22vh] md:left-24 z-40 opacity-40 scale-75 md:scale-100">
         <div className="circular-text relative w-32 h-32 flex items-center justify-center">
             <svg viewBox="0 0 100 100" className="w-full h-full">
               <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
-              <text className="text-[10px] font-bold uppercase tracking-[0.1em]" fill="black">
+              <text className="text-[10px] uppercase tracking-[0.1em]" fill="black">
                 <textPath xlinkHref="#circlePath">
                   • BIO-KINETIC • EST. 1989 • ELITE PERFORMANCE •
                 </textPath>
