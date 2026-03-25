@@ -1,5 +1,6 @@
 import React from "react";
 import Hero from "@/components/sections/Hero";
+import Philosophy from "@/components/sections/Philosophy";
 import About from "@/components/sections/About";
 import Expertises from "@/components/sections/Expertises";
 import Collaborations from "@/components/sections/Collaborations";
@@ -10,6 +11,7 @@ export default function Home() {
   return (
     <main className="w-full">
       <Hero />
+      <Philosophy />
       <About />
       <Expertises />
       <Collaborations />
