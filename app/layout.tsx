@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Tenor_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -7,7 +7,12 @@ import SmoothScrollProvider from "@/components/providers/SmoothScroll";
 import FloatingAwards from "@/components/ui/FloatingAwards";
 import CookieBanner from "@/components/ui/CookieBanner";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const tenorSans = Tenor_Sans({ 
+  weight: "400", 
+  subsets: ["latin"],
+  variable: "--font-tenor-sans"
+});
 
 export const metadata: Metadata = {
   title: "REKCAL | Elite Sports Nutrition & Performance",
@@ -21,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} antialiased bg-white text-black overflow-x-hidden`}>
+      <body className={`${inter.variable} ${tenorSans.variable} antialiased bg-white text-black overflow-x-hidden font-sans`}>
         <SmoothScrollProvider>
           <Header />
           <FloatingAwards />

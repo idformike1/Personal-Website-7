@@ -2,6 +2,7 @@
 
 @theme {
   --font-inter: var(--font-inter);
+  --font-tenor: var(--font-tenor-sans);
 }
 
 :root {
@@ -27,4 +28,9 @@ body {
   html {
     scroll-behavior: smooth;
   }
+}
+
+/* Force Tenor Sans for Hero Parity */
+#accueil, #accueil * {
+  font-family: var(--font-tenor-sans), sans-serif !important;
 }
