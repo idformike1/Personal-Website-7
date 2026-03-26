@@ -163,21 +163,21 @@ export default function Header() {
     tl.current = gsap.timeline({ paused: true })
       .to(".menu-overlay", {
         clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-        duration: 1.2,
+        duration: 0.9,
         ease: "expo.inOut",
       })
       .from(".menu-link-text", {
         yPercent: 100,
-        duration: 0.8,
-        stagger: 0.05,
+        duration: 0.6,
+        stagger: 0.04,
         ease: "power4.out",
-      }, "-=0.6")
+      }, "-=0.45")
       .from(".menu-extras", {
         opacity: 0,
         y: 20,
-        duration: 0.6,
+        duration: 0.45,
         ease: "power2.out",
-      }, "-=0.4");
+      }, "-=0.3");
 
     ScrollTrigger.create({
       start: "top top",
@@ -236,15 +236,15 @@ export default function Header() {
           >
             <div 
               style={{ transform: isOpen ? "rotate(45deg) translateY(5px)" : "rotate(0) translateY(0)" }}
-              className={`w-6 h-[2px] transition-all duration-300 ${isOpen ? "bg-white" : "bg-black"}`}
+              className={`w-6 h-[2px] transition-all duration-[225ms] ${isOpen ? "bg-white" : "bg-black"}`}
             />
             <div 
               style={{ opacity: isOpen ? 0 : 1, transform: isOpen ? "scale(0)" : "scale(1)" }}
-              className={`w-6 h-[2px] transition-all duration-300 ${isOpen ? "bg-white" : "bg-black"}`}
+              className={`w-6 h-[2px] transition-all duration-[225ms] ${isOpen ? "bg-white" : "bg-black"}`}
             />
             <div 
               style={{ transform: isOpen ? "rotate(-45deg) translateY(-5px)" : "rotate(0) translateY(0)" }}
-              className={`w-6 h-[2px] transition-all duration-300 ${isOpen ? "bg-white" : "bg-black"}`}
+              className={`w-6 h-[2px] transition-all duration-[225ms] ${isOpen ? "bg-white" : "bg-black"}`}
             />
           </button>
         </nav>
