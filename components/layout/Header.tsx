@@ -215,7 +215,7 @@ export default function Header() {
     <div ref={container} className="fixed top-0 left-0 right-0 z-50">
       <header className={`transition-all duration-500 border-b border-transparent ${
         isScrolled && !isOpen
-          ? "py-4 bg-white/45 backdrop-blur-md border-black/5 shadow-sm" 
+          ? "py-4 bg-white/75 backdrop-blur-md border-black/5 shadow-sm" 
           : "py-6 bg-transparent"
       }`}>
         <nav className="max-w-7xl mx-auto px-6 flex items-center justify-between relative z-[110]">
@@ -295,8 +295,8 @@ export default function Header() {
               <div className="flex flex-col gap-2">
                 <span className="text-white/50 uppercase text-xs tracking-wider">Socials</span>
                 <div className="flex flex-col gap-1 text-sm items-start">
-                  <AnimatedLink isExternal href="https://behance.net" thickness="small" className="text-white pb-0.5">Behance</AnimatedLink>
-                  <AnimatedLink isExternal href="https://dribbble.com" thickness="small" className="text-white pb-0.5">Dribbble</AnimatedLink>
+                  <AnimatedLink isExternal href="https://facebook.com" thickness="small" className="text-white pb-0.5">Facebook</AnimatedLink>
+                  <AnimatedLink isExternal href="https://twitter.com" thickness="small" className="text-white pb-0.5">Twitter</AnimatedLink>
                   <AnimatedLink isExternal href="https://linkedin.com" thickness="small" className="text-white pb-0.5">LinkedIn</AnimatedLink>
                   <AnimatedLink isExternal href="https://instagram.com" thickness="small" className="text-white pb-0.5">Instagram</AnimatedLink>
                 </div>
