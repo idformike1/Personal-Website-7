@@ -179,25 +179,11 @@ export default function Header() {
         ease: "power2.out",
       }, "-=0.4");
 
-    const showAnim = gsap.to(container.current, {
-      yPercent: -100,
-      paused: true,
-      duration: 0.4,
-      ease: "power3.out"
-    });
-
     ScrollTrigger.create({
       start: "top top",
       end: "max",
       onUpdate: (self) => {
         setIsScrolled(window.scrollY > 50);
-        if (openRef.current) return;
-        
-        if (self.direction === 1 && window.scrollY > 50) {
-          showAnim.play();
-        } else {
-          showAnim.reverse();
-        }
       }
     });
   }, { scope: container });
@@ -227,13 +213,17 @@ export default function Header() {
 
   return (
     <div ref={container} className="fixed top-0 left-0 right-0 z-50">
-      <header className={`transition-all duration-500 ${isScrolled ? "py-4" : "py-6"}`}>
+      <header className={`transition-all duration-500 border-b border-transparent ${
+        isScrolled && !isOpen
+          ? "py-4 bg-white/45 backdrop-blur-md border-black/5 shadow-sm" 
+          : "py-6 bg-transparent"
+      }`}>
         <nav className="max-w-7xl mx-auto px-6 flex items-center justify-between relative z-[110]">
           <Link 
             href="/" 
             onClick={() => setIsOpen(false)}
             className={`text-xl font-black tracking-tighter uppercase transition-colors duration-300 ${
-              isOpen ? "text-white" : "text-black mix-blend-difference"
+              isOpen ? "text-white" : "text-black"
             }`}
           >
             REKCAL
