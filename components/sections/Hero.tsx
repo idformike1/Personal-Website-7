@@ -180,19 +180,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ASYMMETRICAL BOTTOM BULGE (MATCHES OROYA) */}
-      <div className="absolute bottom-[-1px] left-0 w-full overflow-hidden leading-[0] z-20 pointer-events-none">
-        <svg 
-          viewBox="0 0 1440 100" 
-          className="relative block w-full h-[80px] md:h-[120px] lg:h-[160px]" 
-          preserveAspectRatio="none"
-        >
-          <path 
-            fill="#000000" 
-            d="M0,100 C480,100 960,0 1440,40 V100 H0 Z"
-          ></path>
-        </svg>
-      </div>
 
     </section>
   );
