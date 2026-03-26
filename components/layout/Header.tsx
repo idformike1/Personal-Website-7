@@ -65,14 +65,14 @@ function AnimatedLink({
     // Step 2 & 3: Strike fully from the left (0 -> 1)
     gsap.to(lineRef.current, { 
       scaleX: 1, 
-      duration: 0.5, 
+      duration: 0.4, 
       ease: "power2.out",
       onComplete: () => {
         // Step 4: Instantly and invisibly swap anchor to the RIGHT
         gsap.set(lineRef.current, { transformOrigin: "right" });
         
         // Step 5: Settle to 50% width by pulling away from the left edge
-        gsap.to(lineRef.current, { scaleX: 0.5, duration: 0.6, ease: "power2.inOut" });
+        gsap.to(lineRef.current, { scaleX: 0.5, duration: 0.48, ease: "power2.inOut" });
       }
     });
   };
@@ -85,7 +85,7 @@ function AnimatedLink({
     
     // Safety check: ensure origin is right so it always correctly vanishes into the right side
     gsap.set(lineRef.current, { transformOrigin: "right" });
-    gsap.to(lineRef.current, { scaleX: 0, duration: 0.6, ease: "power3.out" });
+    gsap.to(lineRef.current, { scaleX: 0, duration: 0.48, ease: "power3.out" });
   };
 
   const commonClasses = `relative inline-block w-max ${className}`;
