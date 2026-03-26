@@ -151,20 +151,21 @@ export default function Header() {
       {/* FULL-SCREEN MENU OVERLAY */}
       {/* We keep it in the DOM always for GSAP to manipulate, wiping via clip-path */}
       <div 
-        className="menu-overlay fixed inset-0 bg-[#0a0a0a] z-[100] grid grid-cols-1 lg:grid-cols-2 h-screen w-full pointer-events-none"
+        className="menu-overlay fixed inset-0 bg-[#0a0a0a] z-[100] grid grid-cols-1 sm:grid-cols-2 h-screen w-full pointer-events-none"
         style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)" }}
       >
         {/* Enable pointer events only when open */}
-        <div className={`col-span-1 lg:col-span-2 grid grid-cols-1 lg:grid-cols-2 h-full w-full ${isOpen ? "pointer-events-auto" : "pointer-events-none"}`}>
+        <div className={`col-span-1 sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 h-full w-full ${isOpen ? "pointer-events-auto" : "pointer-events-none"}`}>
           
-          {/* LEFT COLUMN: IMAGE (Desktop Only) */}
-          <div className="hidden lg:flex items-center justify-center p-12 xl:p-24 relative h-full">
-             <div className="relative w-full max-w-md aspect-[3/4] overflow-hidden bg-white/5 rounded-sm">
+          {/* LEFT COLUMN: IMAGE (Hidden on mobile, visible on sm and up) */}
+          <div className="hidden sm:flex items-center justify-center p-6 sm:p-12 xl:p-24 relative h-full">
+             <div className="relative w-full max-w-sm lg:max-w-md aspect-[3/4] overflow-hidden bg-white/5 rounded-sm">
                 <Image
                   ref={imageRef}
                   src={activeImage}
                   alt="Menu showcase image"
                   fill
+                  sizes="(max-width: 640px) 0vw, 50vw"
                   className="object-cover"
                   priority
                 />
