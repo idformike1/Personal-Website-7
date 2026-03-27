@@ -13,6 +13,9 @@ export default function Hero() {
   const scrollIconRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
 
+  const kineticTweenRef = useRef<gsap.core.Tween | null>(null);
+  const scrollTlRef = useRef<gsap.core.Timeline | null>(null);
+
   useLayoutEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
     handleResize();
@@ -65,7 +68,7 @@ export default function Hero() {
         });
       }
 
-      gsap.to(".circular-text", {
+      kineticTweenRef.current = gsap.to(".circular-text", {
         rotation: 360,
         duration: 20,
         repeat: -1,
@@ -89,6 +92,7 @@ export default function Hero() {
         duration: 0.8,
         ease: "power2.in"
       });
+      scrollTlRef.current = scrollTl;
 
     }, containerRef);
 
@@ -97,6 +101,18 @@ export default function Hero() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const handleKineticHover = (hover: boolean) => {
+    if (kineticTweenRef.current) {
+      gsap.to(kineticTweenRef.current, { timeScale: hover ? 2 : 1, duration: 0.6, ease: "power3.out" });
+    }
+  };
+
+  const handleScrollHover = (hover: boolean) => {
+    if (scrollTlRef.current) {
+      gsap.to(scrollTlRef.current, { timeScale: hover ? 2 : 1, duration: 0.6, ease: "power3.out" });
+    }
+  };
 
   const splitText = (text: string) => {
     return text.split("").map((char, i) => (char === " " ? (
@@ -180,7 +196,11 @@ export default function Hero() {
         </div>
 
         {/* Circular Icon - Surgically placed below text, aligned left to headline axis */}
-        <div className="mt-4 sm:mt-8 md:mt-12 self-start ml-4 sm:ml-6 md:ml-12 lg:ml-20 z-40 opacity-40 scale-75 md:scale-100">
+        <div 
+          onMouseEnter={() => handleKineticHover(true)}
+          onMouseLeave={() => handleKineticHover(false)}
+          className="mt-4 sm:mt-8 md:mt-12 self-start ml-4 sm:ml-6 md:ml-12 lg:ml-20 z-40 opacity-40 scale-75 md:scale-100 transition-opacity duration-300 hover:opacity-100 cursor-default"
+        >
           <div className="circular-text relative w-32 h-32 flex items-center justify-center">
               <svg viewBox="0 0 100 100" className="w-full h-full">
                 <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
@@ -200,6 +220,8 @@ export default function Hero() {
       {/* SCROLL INDICATOR - Option 3: Liquid Scale (Reduced 25%) */}
       <button 
         onClick={() => document.getElementById('propos')?.scrollIntoView({ behavior: 'smooth' })}
+        onMouseEnter={() => handleScrollHover(true)}
+        onMouseLeave={() => handleScrollHover(false)}
         className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center group z-50 cursor-pointer"
       >
         <div className="flex flex-col items-center mb-1.5">
@@ -212,6 +234,7 @@ export default function Hero() {
           Scroll
         </span>
       </button>
+
     </section>
   );
 }
