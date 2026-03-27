@@ -72,6 +72,24 @@ export default function Hero() {
         ease: "none"
       });
 
+      // Option 3: Liquid Scale Animation
+      const scrollTl = gsap.timeline({ repeat: -1 });
+      scrollTl.fromTo(".scroll-dot", 
+        { scale: 0.8, opacity: 0.3 },
+        { scale: 1.2, opacity: 0.6, duration: 1, yoyo: true, repeat: 1, ease: "sine.inOut" }
+      );
+      scrollTl.fromTo(".scroll-line",
+        { scaleY: 0, transformOrigin: "top", opacity: 0 },
+        { scaleY: 1, opacity: 1, duration: 0.8, ease: "power2.out" },
+        "-=0.5"
+      );
+      scrollTl.to(".scroll-line", {
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.in"
+      });
+
     }, containerRef);
 
     return () => {
@@ -94,7 +112,7 @@ export default function Hero() {
     <section 
       ref={containerRef}
       id="accueil" 
-      className="relative min-h-[55vh] md:min-h-[75vh] w-full overflow-hidden flex items-start justify-center bg-white pt-[8vh] md:pt-[12vh]"
+      className="relative min-h-[30vh] md:min-h-[45vh] w-full overflow-hidden flex items-start justify-center bg-white pt-[6vh] md:pt-[10vh]"
     >
       <div className="container mx-auto flex flex-col items-center text-center max-w-7xl relative">
         
@@ -160,40 +178,40 @@ export default function Hero() {
              Human Performance Architecture
           </p>
         </div>
-      </div>
 
-      {/* CIRCULAR "DISCOVER" TEXT (POSITIONED ABOVE THE CURVE ANCHOR) */}
-      <div className="absolute bottom-10 left-6 md:bottom-[22vh] md:left-24 z-40 opacity-40 scale-75 md:scale-100">
-        <div className="circular-text relative w-32 h-32 flex items-center justify-center">
-            <svg viewBox="0 0 100 100" className="w-full h-full">
-              <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
-              <text className="text-[10px] uppercase tracking-[0.1em]" fill="black">
-                <textPath xlinkHref="#circlePath">
-                  • BIO-KINETIC • EST. 1989 • ELITE PERFORMANCE •
-                </textPath>
-              </text>
-            </svg>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center">
-              <div className="w-[1px] h-full bg-black/40" />
-              <div className="absolute w-full h-[1px] bg-black/40" />
-            </div>
+        {/* Circular Icon - Surgically placed below text, aligned left to headline axis */}
+        <div className="mt-4 sm:mt-8 md:mt-12 self-start ml-4 sm:ml-6 md:ml-12 lg:ml-20 z-40 opacity-40 scale-75 md:scale-100">
+          <div className="circular-text relative w-32 h-32 flex items-center justify-center">
+              <svg viewBox="0 0 100 100" className="w-full h-full">
+                <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+                <text className="text-[10px] uppercase tracking-[0.1em]" fill="black">
+                  <textPath xlinkHref="#circlePath">
+                    • BIO-KINETIC • EST. 1989 • ELITE PERFORMANCE •
+                  </textPath>
+                </text>
+              </svg>
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center">
+                <div className="w-[1px] h-full bg-black/40" />
+                <div className="absolute w-full h-[1px] bg-black/40" />
+              </div>
+          </div>
         </div>
       </div>
-
-      {/* ASYMMETRICAL BOTTOM BULGE (MATCHES OROYA) */}
-      <div className="absolute bottom-[-1px] left-0 w-full overflow-hidden leading-[0] z-20 pointer-events-none">
-        <svg 
-          viewBox="0 0 1440 100" 
-          className="relative block w-full h-[80px] md:h-[120px] lg:h-[160px]" 
-          preserveAspectRatio="none"
-        >
-          <path 
-            fill="#000000" 
-            d="M0,100 C480,100 960,0 1440,40 V100 H0 Z"
-          ></path>
-        </svg>
-      </div>
-
+      {/* SCROLL INDICATOR - Option 3: Liquid Scale (Reduced 25%) */}
+      <button 
+        onClick={() => document.getElementById('propos')?.scrollIntoView({ behavior: 'smooth' })}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center group z-50 cursor-pointer"
+      >
+        <div className="flex flex-col items-center mb-1.5">
+           <div className="scroll-dot w-1 h-1 bg-black rounded-full mb-1 opacity-40 group-hover:opacity-100 transition-opacity" />
+           <div className="w-[1px] h-9 bg-black/5 relative overflow-hidden">
+              <div className="scroll-line absolute top-0 left-0 w-full h-full bg-black/40 origin-top" />
+           </div>
+        </div>
+        <span className="text-[7px] uppercase tracking-[0.6em] opacity-20 group-hover:opacity-60 transition-opacity font-bold mt-1 translate-x-[0.3em]">
+          Scroll
+        </span>
+      </button>
     </section>
   );
 }
