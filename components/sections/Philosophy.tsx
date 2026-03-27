@@ -26,7 +26,7 @@ export default function Philosophy() {
         playsInline
         className="absolute top-0 left-0 w-full h-full object-cover pointer-events-none"
       >
-        <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4" type="video/mp4" />
+        <source src="https://static.vecteezy.com/system/resources/previews/039/634/776/mp4/a-variety-of-nuts-fall-on-the-table-filmed-on-a-high-speed-camera-at-1000-fps-high-quality-fullhd-footage-video.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
