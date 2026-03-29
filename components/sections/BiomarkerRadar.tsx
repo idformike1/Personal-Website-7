@@ -91,7 +91,7 @@ const BiomarkerRadar = () => {
           {[0.2, 0.4, 0.6, 0.8, 1].map((scale, i) => (
             <path
               key={i}
-              d={`M250,${250 - 150 * scale} L${250 + 142 * scale},${250 - 46 * scale} L${250 + 88 * scale},${250 + 121 * scale} L${250 - 88 * scale},${250 + 121 * scale} L${250 - 142 * scale},${250 - 46 * scale} Z`}
+              d={`M250,${(250 - 150 * scale).toFixed(2)} L${(250 + 142 * scale).toFixed(2)},${(250 - 46 * scale).toFixed(2)} L${(250 + 88 * scale).toFixed(2)},${(250 + 121 * scale).toFixed(2)} L${(250 - 88 * scale).toFixed(2)},${(250 + 121 * scale).toFixed(2)} L${(250 - 142 * scale).toFixed(2)},${(250 - 46 * scale).toFixed(2)} Z`}
               fill="none"
               stroke="rgba(255, 255, 255, 0.05)"
               strokeWidth="0.5"
@@ -103,8 +103,8 @@ const BiomarkerRadar = () => {
               key={i}
               x1="250"
               y1="250"
-              x2={250 + 150 * Math.sin((angle * Math.PI) / 180)}
-              y2={250 - 150 * Math.cos((angle * Math.PI) / 180)}
+              x2={(250 + 150 * Math.sin((angle * Math.PI) / 180)).toFixed(2)}
+              y2={(250 - 150 * Math.cos((angle * Math.PI) / 180)).toFixed(2)}
               stroke="rgba(255, 255, 255, 0.1)"
               strokeWidth="0.5"
             />
