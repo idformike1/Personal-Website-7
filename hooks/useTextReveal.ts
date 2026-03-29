@@ -14,7 +14,7 @@ export function useTextReveal(options: gsap.TweenVars = {}) {
     if (!containerRef.current) return;
 
     // Automatically split text for high-end editorial feel
-    const text = new SplitType(containerRef.current, { types: 'lines, words' });
+    const text = new SplitType(containerRef.current, { types: 'lines,words' });
 
     gsap.from(text.words, {
       scrollTrigger: {
