@@ -156,10 +156,12 @@ export default function About() {
             </div>
           </div>
 
-          {/* Right: Technical Visuals & Implementation Details */}
           <div className="w-full lg:w-2/5 flex flex-col justify-center relative py-12 lg:py-0 border-l border-white/5 pl-12">
+             {/* Decorative technical circle - Metabolic Anchor */}
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-dashed border-white/10 rounded-full animate-[spin_20s_linear_infinite] pointer-events-none" />
+             
              {/* Biomarker Radar Chart Visual */}
-             <div className="w-full">
+             <div className="w-full relative z-10">
                 <BiomarkerRadar />
              </div>
           </div>
