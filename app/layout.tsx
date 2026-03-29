@@ -4,7 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import SmoothScrollProvider from "@/components/providers/SmoothScroll";
+import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
 import FloatingAwards from "@/components/ui/FloatingAwards";
 import CookieBanner from "@/components/ui/CookieBanner";
 

@@ -39,3 +39,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# .aiignore - Token Preservation & Security Shield
+node_modules/
+.git/
+.next/
+build/
+dist/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+public/
+.env*
+*.svg
+*.png
+*.jpg

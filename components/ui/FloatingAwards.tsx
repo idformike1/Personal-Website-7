@@ -1,15 +1,38 @@
+/**
+ * REKCAL FLOATING AWARDS - Architectural Refactor
+ * Migration: framer-motion -> GSAP (Standardized Core Stack)
+ */
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { cn } from "@/lib/utils";
 
 export default function FloatingAwards() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    if (!containerRef.current) return;
+
+    // Standard high-end entrance stagger
+    gsap.from(containerRef.current, {
+      opacity: 0,
+      x: 100,
+      duration: 1.5,
+      delay: 2,
+      ease: "power4.out",
+    });
+
+  }, { scope: containerRef });
+
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 100 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: 2, duration: 1 }}
-      className="fixed right-0 top-1/3 z-50 pointer-events-none hidden md:flex items-center"
+    <div
+      ref={containerRef}
+      className={cn(
+        "fixed right-0 top-1/3 z-50 pointer-events-none hidden md:flex items-center",
+        "translate-x-0 opacity-100" // GSAP handles the initial/animate transition
+      )}
     >
       <div className="bg-black text-white px-4 py-8 rounded-l-2xl shadow-2xl flex flex-col items-center gap-4 border border-white/10 pointer-events-auto hover:-translate-x-2 transition-transform duration-500 cursor-pointer group">
         <div className="flex flex-col gap-1">
@@ -28,6 +51,6 @@ export default function FloatingAwards() {
           99%
         </span>
       </div>
-    </motion.div>
+    </div>
   );
 }

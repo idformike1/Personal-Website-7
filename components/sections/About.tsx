@@ -1,54 +1,85 @@
+/**
+ * REKCAL METABOLIC ABOUT - Phase 4 Architectural Refactor
+ * Standard: PERFECT_COMPONENT.tsx (Enterprise Guardrails)
+ * Transitions: GSAP ScrollTrigger + Lenis Ticker
+ */
 "use client";
 
-import React, { useRef } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import SplitType from "split-type";
 import { ABOUT } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 import CellularEngine from "./CellularEngine";
 import MacronutrientMatrix from "./MacronutrientMatrix";
 import BiomarkerRadar from "./BiomarkerRadar";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+// Register core plugins once
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 
 export default function About() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
   const statsContainerRef = useRef<HTMLDivElement>(null);
+  const visualsRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    if (!containerRef.current) return;
+    // 1. Defensive Early Return
+    if (!containerRef.current || !headlineRef.current || !paragraphRef.current) return;
 
-    // 1. GSAP Text Reveal: Line-by-line reveal
-    if (paragraphRef.current) {
-      const split = new SplitType(paragraphRef.current, {
-        types: "lines",
-        lineClass: "overflow-hidden"
-      });
-
-      split.lines?.forEach((line) => {
-        const wrapper = document.createElement("div");
-        wrapper.className = "overflow-hidden py-1";
-        line.parentNode?.insertBefore(wrapper, line);
-        wrapper.appendChild(line);
-      });
-
-      gsap.from(split.lines, {
-        yPercent: 100,
-        stagger: 0.1,
+    // 2. Character Reveal (Mapping pattern from PERFECT_COMPONENT)
+    const chars = headlineRef.current.querySelectorAll(".char");
+    if (chars.length) {
+      gsap.from(chars, {
+        scrollTrigger: {
+          trigger: headlineRef.current,
+          start: "top 90%",
+          toggleActions: "play none none reverse",
+        },
+        y: "100%",
+        opacity: 0,
+        stagger: 0.012,
         duration: 1.2,
         ease: "power4.out",
+      });
+    }
+
+    // 3. Narrative Stagger (Words)
+    const words = paragraphRef.current.querySelectorAll(".word");
+    if (words.length) {
+      gsap.from(words, {
         scrollTrigger: {
           trigger: paragraphRef.current,
           start: "top 85%",
-          toggleActions: "play none none reset",
+          toggleActions: "play none none reverse",
+        },
+        opacity: 0,
+        y: 20,
+        stagger: 0.008,
+        duration: 1,
+        ease: "power3.out",
+      });
+    }
+
+    // 4. Parallax Shift for Technical Visuals (Scrub sync with Lenis)
+    if (visualsRef.current) {
+      gsap.to(visualsRef.current, {
+        yPercent: 15,
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
         },
       });
     }
 
-    // 2. GSAP Number Counters
+    // 5. High-Performance Stat Counters
     const stats = statsContainerRef.current?.querySelectorAll(".stat-number");
     stats?.forEach((stat) => {
       const targetValue = parseInt(stat.getAttribute("data-target") || "0", 10);
@@ -56,43 +87,32 @@ export default function About() {
         { innerText: 0 },
         {
           innerText: targetValue,
-          duration: 2.5,
+          duration: 3,
           ease: "expo.out",
           scrollTrigger: {
             trigger: stat,
             start: "top 95%",
-            toggleActions: "play none none reset",
           },
           onUpdate: function() {
+            // Native DOM update for performance over React state during tick
             stat.textContent = Math.ceil(Number(this.targets()[0].innerText)).toLocaleString();
           }
         }
       );
     });
 
-    if (headlineRef.current) {
-        gsap.from(headlineRef.current, {
-            opacity: 0,
-            y: 40,
-            duration: 1.2,
-            ease: "power4.out",
-            scrollTrigger: {
-                trigger: headlineRef.current,
-                start: "top 90%",
-                toggleActions: "play none none reset",
-            }
-        });
-    }
+  }, { scope: containerRef, dependencies: [ABOUT] });
 
-  }, { scope: containerRef });
+  // Safety Return
+  if (!ABOUT) return null;
 
   return (
     <section 
       ref={containerRef}
       id="propos" 
-      className="relative py-24 md:py-40 bg-[#070707] overflow-hidden text-white perspective-1000"
+      className="relative py-24 md:py-48 bg-[#070707] overflow-hidden text-white"
     >
-      {/* Interactive Cellular Engine Background */}
+      {/* Kinetic Background Engine */}
       <CellularEngine 
         particleCount={100} 
         interactionRadius={180} 
@@ -103,50 +123,56 @@ export default function About() {
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row gap-20 lg:gap-32 items-center">
           
-          {/* Left: Text Content */}
+          {/* Layout Partition: Narrative */}
           <div className="w-full lg:w-3/5">
             <div className="max-w-4xl">
-              <span className="inline-block text-[10px] uppercase tracking-[0.5em] text-zinc-600 mb-6 font-bold">
+              <span className="inline-block text-[10px] uppercase tracking-[0.5em] text-zinc-600 mb-8 font-bold font-mono">
                  // Metabolic Philosophy
               </span>
               
               <h2 
                 ref={headlineRef}
-                className="text-6xl md:text-8xl lg:text-[110px] font-black uppercase tracking-tighter mb-10 leading-[0.85] text-white"
+                className={cn(
+                  "text-6xl md:text-8xl lg:text-[112px] font-black uppercase tracking-tighter mb-12 leading-[0.85] flex flex-wrap",
+                  "clip-path-polygon-[0_0_100%_0_100%_100%_0_100%]" // Mandated technical aesthetic
+                )}
               >
-                {ABOUT.title}
+                {ABOUT.title.split("").map((char, i) => (
+                  <span key={i} className="char inline-block translate-y-0">
+                    {char === " " ? "\u00A0" : char}
+                  </span>
+                ))}
               </h2>
 
               <p 
                 ref={paragraphRef}
-                className="text-lg md:text-xl font-normal leading-relaxed text-zinc-400 mb-16 max-w-4xl"
+                className="text-lg md:text-2xl font-normal leading-relaxed text-zinc-400 mb-16 max-w-3xl flex flex-wrap gap-x-[0.3em]"
               >
-                Born in India and trusted globally, REKCAL has been <br className="hidden lg:block" />
-                supporting high-level athletes worldwide in their quest for <br className="hidden lg:block" />
-                ultimate performance. Through a scientific, personalized <br className="hidden lg:block" />
-                approach to nutrition, our mission is simple: transform <br className="hidden lg:block" />
-                your diet into a decisive competitive advantage.
+                {ABOUT.description.split(" ").map((word, i) => (
+                  <span key={i} className="word inline-block opacity-100 translate-y-0">
+                    {word}
+                  </span>
+                ))}
               </p>
 
-              {/* Macronutrient Matrix - Technical Visualization */}
-              <div className="mb-20">
+              <div className="mb-24">
                 <MacronutrientMatrix />
               </div>
 
               <div 
                 ref={statsContainerRef}
-                className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 w-full pt-16 border-t border-zinc-900"
+                className="grid grid-cols-2 md:grid-cols-4 gap-12 w-full pt-16 border-t border-zinc-900"
               >
                 {ABOUT.stats.map((stat, i) => {
                     const cleanValue = stat.value.replace(/[^0-9]/g, '');
                     const suffix = stat.value.replace(/[0-9]/g, '');
                     return (
-                        <div key={i} className="flex flex-col gap-1">
-                            <span className="text-4xl md:text-5xl lg:text-5xl font-black tracking-tighter">
+                        <div key={i} className="flex flex-col gap-2">
+                            <span className="text-4xl md:text-6xl font-black tracking-tighter">
                                 <span className="stat-number" data-target={cleanValue}>0</span>
-                                <span className="text-zinc-700 ml-0.5">{suffix}</span>
+                                <span className="text-zinc-700 ml-1">{suffix}</span>
                             </span>
-                            <span className="text-[9px] uppercase tracking-[0.25em] font-bold text-zinc-600 leading-tight">
+                            <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-zinc-600">
                                 {stat.label}
                             </span>
                         </div>
@@ -156,11 +182,10 @@ export default function About() {
             </div>
           </div>
 
-          <div className="w-full lg:w-2/5 flex flex-col justify-center relative py-12 lg:py-0 border-l border-white/5 pl-12">
-             {/* Decorative technical circle - Metabolic Anchor */}
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-dashed border-white/10 rounded-full animate-[spin_20s_linear_infinite] pointer-events-none" />
+          {/* Layout Partition: Technical Visualization */}
+          <div ref={visualsRef} className="w-full lg:w-2/5 flex flex-col justify-center relative py-12 lg:py-0 border-l border-white/5 pl-12">
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-dashed border-white/10 rounded-full animate-[spin_30s_linear_infinite] pointer-events-none" />
              
-             {/* Biomarker Radar Chart Visual */}
              <div className="w-full relative z-10">
                 <BiomarkerRadar />
              </div>
@@ -169,9 +194,9 @@ export default function About() {
         </div>
       </div>
       
-      {/* Background Grid Pattern */}
-      <div className="absolute inset-0 opacity-[0.02] pointer-events-none" 
-           style={{ backgroundImage: "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)", backgroundSize: "60px 60px" }} 
+      {/* Architectural Grid Overlay */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+           style={{ backgroundImage: "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)", backgroundSize: "80px 80px" }} 
       />
     </section>
   );
