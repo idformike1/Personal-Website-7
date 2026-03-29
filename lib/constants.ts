@@ -96,7 +96,7 @@ export const ABOUT = {
   subtitle: "India's Premier Sports Nutrition Experts.",
   description: "Born in India and trusted globally, REKCAL has been supporting high-level athletes worldwide in their quest for ultimate performance. Through a scientific, personalized approach to nutrition, our mission is simple: transform your diet into a decisive competitive advantage.",
   stats: [
-    { label: "Global Athletes", value: "10,000+" },
+    { label: "Global Athletes", value: "10k+" },
     { label: "Years of Expertise", value: "12" },
     { label: "Olympic Medals", value: "15" },
     { label: "Countries Served", value: "35+" },

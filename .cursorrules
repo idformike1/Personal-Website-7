@@ -1,4 +1,29 @@
-1. Modularity: All UI elements must be reusable React components. Keep under 150 lines.
-2. Styling: Tailwind CSS only. No custom CSS files unless strictly necessary.
-3. Token Efficiency: Use constant arrays for repeated data (e.g., nav links, services) and map over them.
-4. Output: Write complete, bug-free TypeScript code. No placeholder comments for logic.
+# REKCAL | Elite Sports Nutrition - AI Developer Guidelines
+
+## 1. Execution & AI Behavior (Anti-Loop Protocol)
+- **Direct Output:** Do not explain intent for more than two sentences. Provide the complete, finalized code.
+- **No Placeholders:** Never use `// logic here` or `// add styles`. Write the complete implementation.
+- **File Constraints:** Keep components under 150 lines. If larger, abstract into sub-components in the same directory.
+
+## 2. Animation & Kinetic DOM (GSAP + Lenis)
+- **React GSAP:** ALWAYS use the `useGSAP()` hook from `@gsap/react`. Never use standard `useEffect` for GSAP.
+- **Scope & Cleanup:** Always pass a `ref` to the `scope` property in `useGSAP({ scope: containerRef })` to prevent memory leaks and strict-mode double-firing.
+- **ScrollTrigger:** When creating ScrollTriggers, ensure they are responsive to Lenis smooth scroll updates. Always kill ScrollTriggers on component unmount.
+- **SplitType:** When using `split-type`, always wrap the initialization in `useGSAP` and revert the split on unmount (`split.revert()`).
+
+## 3. Styling & The "Elite Brutalist" Vibe
+- **Tailwind Only:** No custom CSS classes unless handling complex SVG morphs or Canvas layers.
+- **Typography Matrix:**
+  - Headers/Display: Use `font-tenor` or `font-avenir` with uppercase tracking (e.g., `tracking-widest`).
+  - Body: Use `font-sans` (`var(--font-inter)`).
+  - Telemetry/Data: Use `font-mono tracking-tighter` with `font-black` for high-contrast numeric values.
+- **Color Palette:** - Dark Mode Sections: Use `bg-[#070707]`.
+  - Tech Accents: Use Cyan (`#00ffff` / `cyan-400`) and pure white.
+
+## 4. Architecture & State
+- **Token Efficiency:** Import static arrays (Services, Nav, Metrics) from `lib/constants.ts`. Do not hardcode data arrays inside React components.
+- **Client vs. Server:** Default to React Server Components (RSC). Only use `"use client"` at the lowest possible leaf nodes (e.g., interactive widgets like `BiomarkerRadar`, not the entire `About` layout if avoidable).
+
+## 5. Security & Type Safety
+- **Strict TypeScript:** No `any` types. Define interfaces for all component props.
+- **Data Integrity:** Read-only arrays for constants (`as const`).
