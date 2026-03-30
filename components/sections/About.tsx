@@ -23,8 +23,6 @@ export default function About() {
   const containerRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
-  const statsContainerRef = useRef<HTMLDivElement>(null);
-
   useGSAP(() => {
     // 1. Defensive Early Return
     if (!containerRef.current || !headlineRef.current || !paragraphRef.current) return;
@@ -62,28 +60,6 @@ export default function About() {
         ease: "power3.out",
       });
     }
-
-    // 4. Stat Counters
-    const stats = statsContainerRef.current?.querySelectorAll(".stat-number");
-    stats?.forEach((stat) => {
-      const targetValue = parseInt(stat.getAttribute("data-target") || "0", 10);
-      gsap.fromTo(stat, 
-        { innerText: 0 },
-        {
-          innerText: targetValue,
-          duration: 3,
-          ease: "expo.out",
-          scrollTrigger: {
-            trigger: stat,
-            start: "top 95%",
-          },
-          onUpdate: function() {
-            stat.textContent = Math.ceil(Number(this.targets()[0].innerText)).toLocaleString();
-          }
-        }
-      );
-    });
-
   }, { scope: containerRef, dependencies: [ABOUT] });
 
   // Safety Return
@@ -138,29 +114,8 @@ export default function About() {
                 ))}
               </p>
 
-              <div className="mb-24">
+              <div className="mb-24 flex justify-center">
                 <MacronutrientMatrix />
-              </div>
-
-              <div 
-                ref={statsContainerRef}
-                className="grid grid-cols-2 md:grid-cols-4 gap-12 w-full pt-16 border-t border-zinc-900"
-              >
-                {ABOUT.stats.map((stat, i) => {
-                    const cleanValue = stat.value.replace(/[^0-9]/g, '');
-                    const suffix = stat.value.replace(/[0-9]/g, '');
-                    return (
-                        <div key={i} className="flex flex-col gap-2">
-                            <span className="text-4xl md:text-6xl font-black tracking-tighter">
-                                <span className="stat-number" data-target={cleanValue}>0</span>
-                                <span className="text-zinc-700 ml-1">{suffix}</span>
-                            </span>
-                            <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-zinc-600">
-                                {stat.label}
-                            </span>
-                        </div>
-                    );
-                })}
               </div>
             </div>
           </div>
