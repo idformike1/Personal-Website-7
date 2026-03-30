@@ -1,7 +1,8 @@
 "use client";
-import React, { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import SplitType from "split-type";
+import { AnimatedPathsBg } from "@/components/ui/animated-paths-bg";
 
 const WORDS = ["INTAKE", "UPTAKE", "OUTPUT"];
 
@@ -10,17 +11,11 @@ export default function Hero() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const wordRollRef = useRef<HTMLDivElement>(null);
   const subTextRef = useRef<HTMLDivElement>(null);
-  const scrollIconRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
 
   const kineticTweenRef = useRef<gsap.core.Tween | null>(null);
   const scrollTlRef = useRef<gsap.core.Timeline | null>(null);
 
   useLayoutEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 1024);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
     const ctx = gsap.context(() => {
       const wordElements = wordRollRef.current?.querySelectorAll(".word-item");
       const splits = wordElements ? Array.from(wordElements).map(el => new SplitType(el as HTMLElement, { types: "chars" })) : [];
@@ -98,7 +93,6 @@ export default function Hero() {
 
     return () => {
       ctx.revert();
-      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -130,7 +124,8 @@ export default function Hero() {
       id="accueil" 
       className="relative min-h-[30vh] md:min-h-[45vh] w-full overflow-hidden flex items-start justify-center bg-white pt-[6vh] md:pt-[10vh]"
     >
-      <div className="container mx-auto flex flex-col items-center text-center max-w-7xl relative">
+      <AnimatedPathsBg />
+      <div className="container mx-auto flex flex-col items-center text-center max-w-7xl relative z-10">
         
         {/* MAIN HEADLINE */}
         <h1 
