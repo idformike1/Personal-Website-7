@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import gsap from "gsap";
@@ -32,7 +32,7 @@ function AnimatedLink({
   thickness = "large",
 }: {
   href?: string;
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
   isActive?: boolean;
   isExternal?: boolean;
@@ -42,7 +42,6 @@ function AnimatedLink({
   onClick?: () => void;
 }) {
   const lineRef = useRef<HTMLDivElement>(null);
-  const hoverAnimRef = useRef<gsap.core.Timeline | null>(null);
 
   useGSAP(() => {
     // Safety: Kill any active tweens (like from a recent MouseLeave) when the route changes
@@ -182,7 +181,7 @@ export default function Header() {
     ScrollTrigger.create({
       start: "top top",
       end: "max",
-      onUpdate: (self) => {
+      onUpdate: () => {
         setIsScrolled(window.scrollY > 50);
       }
     });

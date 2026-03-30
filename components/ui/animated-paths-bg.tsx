@@ -1,25 +1,25 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 
 function FloatingPaths() {
-    const paths = Array.from({ length: 10 }, (_, i) => {
+    const paths = useMemo(() => Array.from({ length: 10 }, (_, i) => {
         // SVG Viewbox: "0 0 696 316"
-        // Emergence from the left only - Max 10 Lines
+        // Emergence from the left - Max 10 Lines
+        // variety purely based on index 'i' to ensure purity for React lint rules
         const startX = 0;
         const startY = 40 + (i * 12);
         
-        const centerX = 348; // Exactly horizontal center
-        const impactY = 230 + (i * 2);
+        const centerX = 348; 
+        const impactY = 230 + (i * 4);
 
-        // Target exactly 2px ABOVE the top scroll dot (y=270 for precise vertical clarity)
         const endX = 348;
         const endY = 270;
 
-        // Path logic (Left to synchronized scroll dot area)
-        const ctrlX1 = 120 + (Math.random() * 60);
+        // Deterministic variety instead of Math.random
+        const ctrlX1 = 120 + (i * 10);
         const ctrlY1 = startY;
         const ctrlX2 = centerX;
         const ctrlY2 = impactY - 40;
@@ -28,9 +28,9 @@ function FloatingPaths() {
             id: i,
             d: `M ${startX} ${startY} C ${ctrlX1} ${ctrlY1}, ${ctrlX2} ${ctrlY2}, ${endX} ${endY}`,
             strokeWidth: 0.6 + i * 0.05,
-            targetOpacity: 0.25 // Subtle 25% peak opacity
+            targetOpacity: 0.25 
         };
-    });
+    }), []);
 
     const svgRef = useRef<SVGSVGElement>(null);
 
@@ -43,41 +43,36 @@ function FloatingPaths() {
             const length = (path as SVGPathElement).getTotalLength();
             const { targetOpacity } = paths[index];
 
-            // Setup: Line is exactly length, but offset is 'length' (hidden)
             gsap.set(path, {
                 strokeDasharray: length,
                 strokeDashoffset: length,
                 opacity: 0
             });
 
-            // Timeline for emergence from the left with convergence on scroll dot
             const tl = gsap.timeline({
                 repeat: -1,
-                delay: Math.random() * 8,
-                repeatDelay: Math.random() * 2
+                delay: index * 0.8, // Deterministic staggering
+                repeatDelay: (index % 3) * 0.5
             });
 
-            // 1. Emerge and Reach Peak Opacity
             tl.to(path, {
-                strokeDashoffset: length * 0.3, // Move 70% of the way
+                strokeDashoffset: length * 0.3,
                 opacity: targetOpacity,
-                duration: 5 + Math.random() * 2,
+                duration: 5 + (index % 4),
                 ease: "power1.out"
             });
 
-            // 2. Start Progressive Fade as it reaches the scroll dot
             tl.to(path, {
-                strokeDashoffset: -length, // Complete the full travel
-                duration: 5 + Math.random() * 2,
+                strokeDashoffset: -length,
+                duration: 5 + (index % 3),
                 ease: "power2.in"
             }, "-=" + 0.5);
 
-            // Layered Opacity Fade (Parallel to travel - conclude at impact)
             tl.to(path, {
                 opacity: 0,
-                duration: 4 + Math.random() * 2,
+                duration: 4 + (index % 2),
                 ease: "power2.in"
-            }, ">-40%"); // Ensure concluding fade as it hits the scroll dot
+            }, ">-40%");
         });
     }, { scope: svgRef });
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -18,7 +18,6 @@ const BiomarkerRadar = () => {
   const baseShape = "M250,210 L288,238 L273,283 L227,283 L212,238 Z";
   const optimizedShape = "M250,110 L383,190 L330,350 L170,350 L117,190 Z";
   const breatheStateA = "M250,115 L378,193 L325,345 L175,345 L122,193 Z";
-  const breatheStateB = "M250,110 L388,187 L335,355 L165,355 L112,187 Z";
 
   useEffect(() => {
     // Register plugin if it exists globally (as requested via <script> assumption)

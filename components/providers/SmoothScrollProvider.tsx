@@ -4,7 +4,7 @@
  */
 "use client";
 
-import React from "react";
+import { ReactNode } from "react";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -16,7 +16,7 @@ if (typeof window !== "undefined") {
 }
 
 interface SmoothScrollProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export default function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {

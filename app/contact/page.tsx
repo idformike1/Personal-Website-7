@@ -1,5 +1,4 @@
 import Contact from "@/components/sections/Contact";
-import React from "react";
 
 export default function ContactPage() {
   return (

@@ -16,10 +16,15 @@ export default function CookieBanner() {
 
   useEffect(() => {
     const hasConsented = localStorage.getItem("cookie-consent");
+    let timer: NodeJS.Timeout | undefined;
+    
     if (!hasConsented) {
-      const timer = setTimeout(() => setShow(true), 2500);
-      return () => clearTimeout(timer);
+      timer = setTimeout(() => setShow(true), 2500);
     }
+
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
   }, []);
 
   useGSAP(() => {

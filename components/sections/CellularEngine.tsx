@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import { FC, useEffect, useRef } from "react";
 
 interface Particle {
   x: number;
@@ -21,7 +21,7 @@ interface CellularEngineProps {
   connectionDistance?: number;
 }
 
-const CellularEngine: React.FC<CellularEngineProps> = ({
+const CellularEngine: FC<CellularEngineProps> = ({
   particleCount = 80,
   interactionRadius = 150,
   baseSpeed = 0.5,
