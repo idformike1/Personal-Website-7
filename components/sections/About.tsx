@@ -13,7 +13,6 @@ import { ABOUT } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import CellularEngine from "./CellularEngine";
 import MacronutrientMatrix from "./MacronutrientMatrix";
-import BiomarkerRadar from "./BiomarkerRadar";
 
 // Register core plugins once
 if (typeof window !== "undefined") {
@@ -25,13 +24,12 @@ export default function About() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
   const statsContainerRef = useRef<HTMLDivElement>(null);
-  const visualsRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     // 1. Defensive Early Return
     if (!containerRef.current || !headlineRef.current || !paragraphRef.current) return;
 
-    // 2. Character Reveal (Mapping pattern from PERFECT_COMPONENT)
+    // 2. Character Reveal
     const chars = headlineRef.current.querySelectorAll(".char");
     if (chars.length) {
       gsap.from(chars, {
@@ -48,7 +46,7 @@ export default function About() {
       });
     }
 
-    // 3. Narrative Stagger (Words)
+    // 3. Narrative Stagger
     const words = paragraphRef.current.querySelectorAll(".word");
     if (words.length) {
       gsap.from(words, {
@@ -65,21 +63,7 @@ export default function About() {
       });
     }
 
-    // 4. Parallax Shift for Technical Visuals (Scrub sync with Lenis)
-    if (visualsRef.current) {
-      gsap.to(visualsRef.current, {
-        yPercent: 15,
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-    }
-
-    // 5. High-Performance Stat Counters
+    // 4. Stat Counters
     const stats = statsContainerRef.current?.querySelectorAll(".stat-number");
     stats?.forEach((stat) => {
       const targetValue = parseInt(stat.getAttribute("data-target") || "0", 10);
@@ -94,7 +78,6 @@ export default function About() {
             start: "top 95%",
           },
           onUpdate: function() {
-            // Native DOM update for performance over React state during tick
             stat.textContent = Math.ceil(Number(this.targets()[0].innerText)).toLocaleString();
           }
         }
@@ -123,9 +106,9 @@ export default function About() {
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row gap-20 lg:gap-32 items-center">
           
-          {/* Layout Partition: Narrative */}
-          <div className="w-full lg:w-3/5">
-            <div className="max-w-4xl">
+          {/* Layout Partition: Narrative (Full Width now) */}
+          <div className="w-full">
+            <div className="max-w-4xl mx-auto">
               <span className="inline-block text-[10px] uppercase tracking-[0.5em] text-zinc-600 mb-8 font-bold font-mono">
                  // Metabolic Philosophy
               </span>
@@ -181,16 +164,6 @@ export default function About() {
               </div>
             </div>
           </div>
-
-          {/* Layout Partition: Technical Visualization */}
-          <div ref={visualsRef} className="w-full lg:w-2/5 flex flex-col justify-center relative py-12 lg:py-0 border-l border-white/5 pl-12">
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-dashed border-white/10 rounded-full animate-[spin_30s_linear_infinite] pointer-events-none" />
-             
-             <div className="w-full relative z-10">
-                <BiomarkerRadar />
-             </div>
-          </div>
-          
         </div>
       </div>
       
