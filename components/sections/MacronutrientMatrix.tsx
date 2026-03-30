@@ -90,27 +90,27 @@ const MacronutrientMatrix = () => {
           <div 
             key={metric.id}
             onMouseEnter={() => scrambleValue(i, 400)}
-            className="bg-[#070707] p-6 lg:p-10 group transition-colors duration-500 hover:bg-white/[0.02] flex flex-col justify-between h-full"
+            className="bg-[#070707] p-4 lg:p-6 group transition-colors duration-500 hover:bg-white/[0.02] flex flex-col justify-between h-full"
           >
-            <div className="flex justify-between items-start mb-6">
-              <span className="text-zinc-600 text-[10px] uppercase tracking-[0.2em] font-medium">
+            <div className="flex justify-between items-start mb-4">
+              <span className="text-zinc-600 text-[9px] uppercase tracking-[0.2em] font-medium">
                 [{metric.id}]
               </span>
-              <span className="text-zinc-500 text-[9px] uppercase tracking-[0.1em] font-bold opacity-60">
+              <span className="text-zinc-500 text-[8px] uppercase tracking-[0.1em] font-bold opacity-60">
                 {metric.label}
               </span>
             </div>
             
             <div className="flex items-baseline gap-1">
-              <span className={`text-4xl lg:text-5xl xl:text-6xl font-black tracking-tighter transition-all duration-300 ${isScrambling[i] ? 'text-cyan-500' : 'text-white'}`}>
+              <span className={`text-3xl lg:text-4xl xl:text-5xl font-black tracking-tighter transition-all duration-300 ${isScrambling[i] ? 'text-cyan-500' : 'text-white'}`}>
                 {displayValues[i]}
               </span>
-              <span className="text-zinc-700 text-sm lg:text-lg font-black uppercase">
+              <span className="text-zinc-700 text-xs lg:text-base font-black uppercase">
                 {metric.unit}
               </span>
             </div>
 
-            <div className="mt-8 flex gap-1 h-[2px] w-full bg-white/5 opacity-40 group-hover:opacity-100 transition-opacity overflow-hidden">
+            <div className="mt-6 flex gap-1 h-[1.5px] w-full bg-white/5 opacity-40 group-hover:opacity-100 transition-opacity overflow-hidden">
                 <div 
                   className="h-full bg-cyan-500 transition-all duration-1000" 
                   style={{ width: `${(parseFloat(displayValues[i]) / (metric.base * 1.5)) * 100}%` }}

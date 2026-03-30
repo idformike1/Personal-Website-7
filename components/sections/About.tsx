@@ -80,11 +80,11 @@ export default function About() {
       />
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-20 lg:gap-32 items-center">
+        <div className="flex flex-col lg:flex-row gap-20 lg:gap-32 items-start justify-between">
           
-          {/* Layout Partition: Narrative (Full Width now) */}
-          <div className="w-full">
-            <div className="max-w-4xl mx-auto">
+          {/* Narrative Column (60%) */}
+          <div className="w-full lg:w-3/5">
+            <div className="max-w-4xl">
               <span className="inline-block text-[10px] uppercase tracking-[0.5em] text-zinc-600 mb-8 font-bold font-mono">
                  // Metabolic Philosophy
               </span>
@@ -92,8 +92,8 @@ export default function About() {
               <h2 
                 ref={headlineRef}
                 className={cn(
-                  "text-6xl md:text-8xl lg:text-[112px] font-black uppercase tracking-tighter mb-12 leading-[0.85] flex flex-wrap",
-                  "clip-path-polygon-[0_0_100%_0_100%_100%_0_100%]" // Mandated technical aesthetic
+                  "text-6xl md:text-8xl lg:text-[100px] font-black uppercase tracking-tighter mb-12 leading-[0.85] flex flex-wrap",
+                  "clip-path-polygon-[0_0_100%_0_100%_100%_0_100%]"
                 )}
               >
                 {ABOUT.title.split("").map((char, i) => (
@@ -114,10 +114,38 @@ export default function About() {
                 ))}
               </p>
 
-              <div className="mb-24 flex justify-center">
+              <div className="mb-24 w-full">
                 <MacronutrientMatrix />
               </div>
             </div>
+          </div>
+
+          {/* Visual Asset Column (40%) */}
+          <div className="w-full lg:w-2/5 mt-12 lg:mt-32 relative">
+             <div className="relative aspect-[4/5] overflow-hidden group">
+                {/* Technical Overlay */}
+                <div className="absolute inset-0 z-20 pointer-events-none opacity-40 mix-blend-overlay"
+                     style={{ backgroundImage: "linear-gradient(#070707 1px, transparent 1px), linear-gradient(90deg, #070707 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
+                
+                {/* Photo with GSAP Reveal */}
+                <div className="absolute inset-0 bg-[#070707] z-10 animate-reveal-down" />
+                <img 
+                  src="https://images.unsplash.com/photo-1576091160550-217359f4ecf8?q=80&w=2070&auto=format&fit=crop"
+                  alt="REKCAL Elite Performance Team"
+                  className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 scale-105 group-hover:scale-100"
+                />
+
+                {/* Aesthetic Border/Frame */}
+                <div className="absolute -inset-4 border border-white/5 pointer-events-none -z-10" />
+                <div className="absolute top-0 right-0 p-4 z-30">
+                   <span className="text-[9px] uppercase tracking-[0.2em] font-mono text-white/40">
+                      [IMG_SENS_REKCAL_01]
+                   </span>
+                </div>
+             </div>
+             
+             {/* Dynamic Accent */}
+             <div className="absolute -bottom-8 -left-8 w-24 h-24 border-l border-b border-white/20 pointer-events-none" />
           </div>
         </div>
       </div>
