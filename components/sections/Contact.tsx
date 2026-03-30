@@ -45,7 +45,7 @@ export default function Contact() {
             </h2>
             <p className="text-black/80 uppercase tracking-widest text-sm max-w-sm leading-loose font-medium">
               An athletic goal? Need nutritional support? 
-              Fill out the form and let's optimize your metabolism.
+              Fill out the form and let&apos;s optimize your metabolism.
             </p>
           </div>
         </div>

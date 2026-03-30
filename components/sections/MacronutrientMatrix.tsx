@@ -4,19 +4,20 @@ import { useState, useEffect } from "react";
 import { gsap } from "gsap";
 import { ABOUT } from "@/lib/constants";
 
+// Extract stats from constants to ensure stable reference
+const METRICS = ABOUT.stats.map(stat => {
+  const cleanValue = parseFloat(stat.value.replace(/[^0-9.]/g, ''));
+  const suffix = stat.value.replace(/[0-9.]/g, '');
+  return {
+    id: stat.label.split(' ').map(w => w[0]).join('').toUpperCase(),
+    label: stat.label,
+    base: cleanValue,
+    unit: suffix,
+    range: cleanValue * 0.05 // Subtle fluctuation for realism
+  };
+});
+
 const MacronutrientMatrix = () => {
-  // Extract stats from constants
-  const METRICS = ABOUT.stats.map(stat => {
-    const cleanValue = parseFloat(stat.value.replace(/[^0-9.]/g, ''));
-    const suffix = stat.value.replace(/[0-9.]/g, '');
-    return {
-      id: stat.label.split(' ').map(w => w[0]).join('').toUpperCase(),
-      label: stat.label,
-      base: cleanValue,
-      unit: suffix,
-      range: cleanValue * 0.05 // Subtle fluctuation for realism
-    };
-  });
 
   const [displayValues, setDisplayValues] = useState<string[]>(METRICS.map(m => m.base.toString()));
   const [isScrambling, setIsScrambling] = useState<boolean[]>(METRICS.map(() => false));
