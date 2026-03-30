@@ -130,8 +130,8 @@ export default function About() {
                 {/* Photo with GSAP Reveal */}
                 <div className="absolute inset-0 bg-[#070707] z-10 animate-reveal-down" />
                 <img 
-                  src="/images/about/team_nano_banana.png"
-                  alt="REKCAL Nano Banana Elite Performance Team"
+                  src="https://images.unsplash.com/photo-1576091160550-217359f4ecf8?q=80&w=2070&auto=format&fit=crop"
+                  alt="REKCAL Elite Performance Team"
                   className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 scale-105 group-hover:scale-100"
                 />
 
@@ -139,7 +139,7 @@ export default function About() {
                 <div className="absolute -inset-4 border border-white/5 pointer-events-none -z-10" />
                 <div className="absolute top-0 right-0 p-4 z-30">
                    <span className="text-[9px] uppercase tracking-[0.2em] font-mono text-white/40">
-                      [IMG_PROD_NANO_BANANA]
+                      [IMG_PROD_REKCAL_01]
                    </span>
                 </div>
              </div>
